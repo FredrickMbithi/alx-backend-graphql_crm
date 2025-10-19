@@ -43,3 +43,4 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     create_customer = CreateCustomer.Field()
+    create_customer = CreateCustomer.Field()
