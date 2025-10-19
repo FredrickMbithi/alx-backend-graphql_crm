@@ -1,8 +1,8 @@
-from django_filters import FilterSet
+import django_filters
 from .models import Customer
 
 
-class CustomerFilter(FilterSet):
+class CustomerFilter(django_filters.FilterSet):
     class Meta:
         model = Customer
         fields = ['name', 'email']
