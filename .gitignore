@@ -1,0 +1,30 @@
+# Python ignores
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+venv/
+ENV/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Tooling caches
+.mypy_cache/
+.pytest_cache/
+.pyre/
+.pytype/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
