@@ -13,6 +13,14 @@ class Customer(models.Model):
 		return self.name
 
 
+
+class Product(models.Model):
+	name = models.CharField(max_length=100)
+	stock = models.IntegerField(default=0)
+
+	def __str__(self):
+		return f"{self.name} (Stock: {self.stock})"
+
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, related_name='orders', on_delete=models.CASCADE)
 	created_at = models.DateTimeField(auto_now_add=True)

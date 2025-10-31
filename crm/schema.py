@@ -3,7 +3,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from graphene import relay
 
-from .models import Customer
+from .models import Customer, Product
 from .filters import CustomerFilter
 
 
@@ -41,6 +41,26 @@ class Query(graphene.ObjectType):
         return Customer.objects.all()
 
 
+
+# Mutation for updating low stock products
+class ProductType(graphene.ObjectType):
+    name = graphene.String()
+    stock = graphene.Int()
+
+class UpdateLowStockProducts(graphene.Mutation):
+    updated_products = graphene.List(ProductType)
+    message = graphene.String()
+
+    def mutate(self, info):
+        products = Product.objects.filter(stock__lt=10)
+        updated = []
+        for product in products:
+            product.stock += 10
+            product.save()
+            updated.append(ProductType(name=product.name, stock=product.stock))
+        msg = f"Updated {len(updated)} products."
+        return UpdateLowStockProducts(updated_products=updated, message=msg)
+
 class Mutation(graphene.ObjectType):
     create_customer = CreateCustomer.Field()
-    create_customer = CreateCustomer.Field()
+    update_low_stock_products = UpdateLowStockProducts.Field()
